@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Button from './Button';
+import Pokemon from './Pokemon';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor () {
+    super()
+    this.state = {
+      pokemon: [],
+      id: ''
+    }
+  }  
+
+loadPage = () => {
+  const randomNum = (min, max) => {
+    min = Math.ceil(1);
+    max = Math.floor(500);
+    return Math.floor(Math.random() * (500 - 1 + 1)) + 1;
+  }
+  let random = randomNum();
+  fetch(`https://pokeapi.co/api/v2/pokemon/${random}`)
+  .then(resp => resp.json())
+  .then(poke => this.setState({ pokemon: poke, id: random }));
 }
+
+componentDidMount() {
+  this.loadPage();
+}
+ 
+  render() {
+    const { pokemon, id } = this.state;
+    return(
+    <div className="tc pa5">
+      <h1>Pokemon, Gotta Catch em' all!</h1>
+      <Button go={this.loadPage}/>
+      <Pokemon pokemon={pokemon} id={id}/>
+    </div>
+  )
+  };
+}
+
+  
 
 export default App;
