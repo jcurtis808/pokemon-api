@@ -1,6 +1,6 @@
 {
   "name": "pokemon-api",
-  "homepage": "https://jcurtis808.github.io/pokemon-api/",
+  "homepage": "https://github.com/jcurtis808/pokemon-api",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
